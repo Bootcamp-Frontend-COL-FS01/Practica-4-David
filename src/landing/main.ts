@@ -28,10 +28,7 @@ let user1: User = {
   password: 'admin',
 };
 
-let user2 : User = {
-  username: 'test',
-  password: 'test',
-}
+
 
 
 let userAuth = new UserAuth(user1);

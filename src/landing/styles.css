@@ -1,0 +1,31 @@
+body {
+    background-image: url("/img/1.avif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    z-index: 1;
+}
+
+main {
+    display: grid;
+    place-items: center;
+    margin-top: 5%;
+
+}
+
+form {
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    padding: 25px;
+    z-index: 2;
+    border: 1px solid white;
+    border-radius: 30px;
+}
+
+.buttons-container {
+    display: grid;
+    place-items: center;
+}
+
+

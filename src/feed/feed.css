@@ -1,0 +1,35 @@
+body {
+  background-image: url("/img/1.avif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20%;
+  margin-right: 20%;
+  
+  
+}
+
+#blog-feed {
+  margin-left: 10%;
+  margin-right: 10%;
+  /* border: 1px solid white; */
+}
+
+section {
+  border: 1px solid white;
+}
+
+
+.change-password-button-container {
+  display: grid;
+  place-items: center;
+}
+
+.change-password-button {
+  font-size: 25px;
+}

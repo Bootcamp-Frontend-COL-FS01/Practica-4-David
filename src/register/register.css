@@ -1,0 +1,14 @@
+body {
+    background-image: url("/img/1.avif"); 
+    background-repeat: no-repeat;
+    background-size: cover; 
+color: white;    
+
+}
+
+.form-container {
+margin-top: 20%;
+display: grid;
+place-items: center;
+}
+

@@ -58,6 +58,7 @@ loginButton?.addEventListener("click", (event) => {
 });
 
 
+// Navigation: register
 const registerButton = document.getElementById('register-button');
 registerButton?.addEventListener( "click", (event) => {
   event.preventDefault();

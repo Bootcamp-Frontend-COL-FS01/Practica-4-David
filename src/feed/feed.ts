@@ -150,3 +150,52 @@ for (let i = 0; i < deleteButtons.length; i++) {
       console.log('Change Password clicked');
   });
 });
+
+
+////
+
+
+function createNewPost(title: string, content: string, author: string) {
+  const newPost: Feed = {
+    user: author,
+    title: title,
+    content: content
+  };
+  feeds.unshift(newPost); // Add the new post to the beginning of the feeds array
+  const feedHtml = loadFeed(feeds); // Reload the feed with the new post
+  const blogFeedElement = document.getElementById("blog-feed");
+  if (blogFeedElement) {
+    blogFeedElement.innerHTML = feedHtml;
+  }
+}
+
+const newPost = document.getElementById('newPost') as HTMLElement;
+
+newPost.addEventListener("click", () => {
+  const newPostForm = `
+    <form id="new-post-form">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      <label for="content">Content:</label>
+      <textarea id="content" name="content" rows="4" cols="50" required></textarea>
+      <label for="author">Author Name:</label>
+      <input type="text" id="author" name="author" required>
+      <button type="submit">Submit</button>
+    </form>
+  `;
+
+  const blogFeedElement = document.getElementById("blog-feed");
+  if (blogFeedElement) {
+    blogFeedElement.innerHTML = newPostForm;
+
+    const formElement = document.getElementById("new-post-form") as HTMLFormElement;
+    formElement.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const title = (document.getElementById("title") as HTMLInputElement).value;
+      const content = (document.getElementById("content") as HTMLTextAreaElement).value;
+      const author = (document.getElementById("author") as HTMLInputElement).value;
+      createNewPost(title, content, author);
+    });
+  }
+});
+

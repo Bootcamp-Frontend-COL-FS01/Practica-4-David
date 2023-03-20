@@ -53,9 +53,11 @@ function loadFeed(feeds: Feed[]): string {
             ${title ? `<h1>${title}</h1>` : ""}
             <h5>${content}</h5>
             <h4>By ${user} </h4>
-            <h6> Edit post  <button> ✎ </button>  </h6>
-            <h6> Remove post  <button> 🗙 </button>  </h6>      
-
+            <div>
+                <button class="edit-button"> ✎ </button>
+                <button class="save-button" style="display:none"> 💾 </button>
+                <button> 🗙 </button>
+            </div>
         </section>
         `;
   });
@@ -70,4 +72,59 @@ document.addEventListener("DOMContentLoaded", () => {
   if (blogFeedElement) {
     blogFeedElement.innerHTML = feedHtml;
   }
+
+  // Add event listeners for edit buttons
+  const editButtons = document.getElementsByClassName("edit-button");
+  for (let i = 0; i < editButtons.length; i++) {
+    editButtons[i].addEventListener("click", (event) => {
+      const button = event.target as HTMLElement;
+      const contentElement = button.parentElement!.previousElementSibling!.previousElementSibling as HTMLElement;
+      contentElement.setAttribute("contenteditable", "true");
+      contentElement.focus();
+
+      // Show the save button and hide the edit button
+      const saveButton = button.nextElementSibling as HTMLElement;
+      saveButton.style.display = "inline";
+      button.style.display = "none";
+    });
+  }
+
+  // Add event listeners for save buttons
+  const saveButtons = document.getElementsByClassName("save-button");
+  for (let i = 0; i < saveButtons.length; i++) {
+    saveButtons[i].addEventListener("click", (event) => {
+      const button = event.target as HTMLElement;
+      const contentElement = button.parentElement!.previousElementSibling!.previousElementSibling as HTMLElement;
+      contentElement.setAttribute("contenteditable", "false");
+
+      // Save the new content (replace the content in the feeds array)
+      const newContent = contentElement.textContent!;
+      feeds[i].content = newContent;
+
+      // Hide the save button and show the edit button
+      const editButton = button.previousElementSibling as HTMLElement;
+      editButton.style.display = "inline";
+      button.style.display = "none";
+    });
+  }
+
+  // Hamburger menu logic
+  const hamburger = document.getElementById('hamburger') as HTMLElement;
+  const menu = document.getElementById('menu') as HTMLElement;
+  const newPost = document.getElementById('newPost') as HTMLElement;
+  const changePassword = document.getElementById('changePassword') as HTMLElement;
+
+  hamburger.addEventListener('click', () => {
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  });
+
+  newPost.addEventListener('click', () => {
+      // Your logic for the "New Post" action
+      console.log('New Post clicked');
+  });
+
+  changePassword.addEventListener('click', () => {
+      // Your logic for the "Change Password" action
+      console.log('Change Password clicked');
+  });
 });

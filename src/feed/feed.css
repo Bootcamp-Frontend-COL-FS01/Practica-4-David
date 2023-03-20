@@ -1,5 +1,5 @@
 body {
-  background-image: url("/img/1.avif");
+  background-image: url("/src/img/1c.avif");
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
@@ -22,6 +22,9 @@ body {
 
 section {
   border: 1px solid white;
+  border-radius: 30px;
+  padding: 15px;
+  margin: 10px;
 }
 
 
@@ -32,4 +35,41 @@ section {
 
 .change-password-button {
   font-size: 25px;
+}
+
+
+/* Hamburger menu */
+
+.navbar {
+  /* background-color: #333; */
+  padding: 5px;
+  display: flex;
+}
+
+.hamburger {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  display: inline;
+}
+
+.menu {
+  display: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  background-color: #333;
+  padding: 5px 10px;
+}
+
+.menu li a {
+  color: white;
+  text-decoration: none;
+}
+
+.menu li:hover {
+  background-color: #444;
 }

@@ -1,5 +1,7 @@
 
 import "./styles.css";
+import loginImage from '../img/login.png';
+
 
 interface User {
   username: string;
@@ -33,7 +35,6 @@ let user2 : User = {
 
 
 let userAuth = new UserAuth(user1);
-// let userAuth = new UserAuth(user2);
 
 // LOGIN
 function loginUser(): void {
@@ -42,10 +43,13 @@ function loginUser(): void {
 
   const username = userElement.value;
   const password = passwordElement.value;
-
+ 
   if (userAuth.login(username, password)) {
-    alert('Logged In Sucesfully')
-    window.location.href = "feed.html";
+    ShowCustomPromptLogin();
+
+    setTimeout(() => {
+      window.location.href = "feed.html";
+    }, 3000); // Wait for 3 seconds before navigating
   } else {
     alert("Incorrect User or Password");
   }
@@ -65,3 +69,22 @@ registerButton?.addEventListener( "click", (event) => {
   window.location.href = "register.html";
 
 }  )
+
+
+// customPromptLogin.ts
+function ShowCustomPromptLogin(): void {
+  const imageElement = document.getElementById('login-image') as HTMLImageElement;
+  const loginPromptContainer = document.getElementById('custom-prompt-login-container') as HTMLElement;
+
+  if (imageElement) {
+    imageElement.src = loginImage;
+  }
+
+  if (loginPromptContainer) {
+    loginPromptContainer.style.display = "flex";
+  }
+}
+
+
+
+

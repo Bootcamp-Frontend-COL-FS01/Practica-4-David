@@ -34,14 +34,25 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
+      // {
+      //   test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+      //   loader: "file-loader",
+      //   options: {
+      //     name: "[name].[ext]",
+      //     outputPath: "assets/",
+      //   },
+      // },
+
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-        loader: "file-loader",
+        loader: 'url-loader',
         options: {
-          name: "[name].[ext]",
-          outputPath: "assets/",
+          limit: 8192,
+          name: 'assets/[name].[ext]',
         },
       },
+      
+
       { test: /\.html$/, loader: "html-loader" },
     ],
   },
@@ -49,6 +60,8 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       fs: require.resolve("fs"),
+      '@': path.resolve(__dirname, 'src'), // Add this line
+
     },
   },
   output: {

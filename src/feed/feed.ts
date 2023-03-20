@@ -108,6 +108,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
+// Add event listeners for delete buttons
+const deleteButtons = document.querySelectorAll("button:nth-child(3)");
+for (let i = 0; i < deleteButtons.length; i++) {
+  deleteButtons[i].addEventListener("click", (event) => {
+    const button = event.target as HTMLElement;
+    const postElement = button.closest("section");
+
+    // Confirm before deleting
+    const confirmed = confirm("Are you sure you want to delete this post?");
+    if (confirmed && postElement) {
+      postElement.remove(); // Remove the post from the DOM
+      feeds.splice(i, 1); // Remove the post from the feeds array
+    }
+  });
+}
+
+
+
+
+
+
   // Hamburger menu logic
   const hamburger = document.getElementById('hamburger') as HTMLElement;
   const menu = document.getElementById('menu') as HTMLElement;

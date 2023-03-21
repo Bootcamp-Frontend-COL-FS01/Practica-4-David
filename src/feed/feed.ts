@@ -150,8 +150,8 @@ for (let i = 0; i < deleteButtons.length; i++) {
   });
 
   changePassword.addEventListener('click', () => {
-      // Your logic for the "Change Password" action
-      console.log('Change Password clicked');
+    window.location.href = "changepassword.html";
+
   });
 });
 

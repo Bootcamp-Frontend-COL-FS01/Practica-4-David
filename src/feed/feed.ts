@@ -2,8 +2,9 @@ import "./feed.css";
 
 interface Feed {
   user: string;
-  title?: string;
+  title: string;
   content: string;
+  image?: string;
 }
 
 const feeds: Feed[] = [
@@ -12,6 +13,7 @@ const feeds: Feed[] = [
     title: "This is a title",
     content:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil distinctio voluptate tempora adipisci dolore ullam magni enim, iusto tenetur maiores facilis eaque dolor, quos laudantium necessitatibus sit reprehenderit. Commodi, dolorum.",
+    image: "../img/marek-piwnicki-d_A795LuFRM-unsplash.jpg"
   },
   {
     user: "user2",
@@ -40,19 +42,20 @@ const feeds: Feed[] = [
 ];
 
 function loadFeed(feeds: Feed[]): string {
-  console.log("load fed function executed");
   let html = "";
 
   feeds.forEach((feed) => {
     const user = feed.user;
     const title = feed.title;
     const content = feed.content;
+    const image = feed.image; // Add this line
 
     html += `
         <section>
-            ${title ? `<h1>${title}</h1>` : ""}
-            <h5>${content}</h5>
-            <h4>By ${user} </h4>
+        ${title ? `<h1>${title}</h1>` : ""}
+        <h5>${content}</h5>
+        ${image ? `<img src="${image}" alt="Post Image">` : ""}
+        <h4>By ${user} </h4>
             <div>
                 <button class="edit-button"> ✎ </button>
                 <button class="save-button" style="display:none"> 💾 </button>
@@ -64,6 +67,7 @@ function loadFeed(feeds: Feed[]): string {
 
   return html;
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const feedHtml = loadFeed(feeds);
@@ -155,21 +159,38 @@ for (let i = 0; i < deleteButtons.length; i++) {
 ////
 
 
-function createNewPost(title: string, content: string, author: string) {
+function createNewPost(title: string, content: string, author: string, imageFile?: File) {
   const newPost: Feed = {
     user: author,
     title: title,
-    content: content
+    content: content,
   };
-  feeds.unshift(newPost); // Add the new post to the beginning of the feeds array
-  const feedHtml = loadFeed(feeds); // Reload the feed with the new post
-  const blogFeedElement = document.getElementById("blog-feed");
-  if (blogFeedElement) {
-    blogFeedElement.innerHTML = feedHtml;
+  if (imageFile) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target instanceof FileReader) {
+        newPost.image = event.target.result as string;
+        feeds.unshift(newPost);
+        const feedHtml = loadFeed(feeds);
+        const blogFeedElement = document.getElementById("blog-feed");
+        if (blogFeedElement) {
+          blogFeedElement.innerHTML = feedHtml;
+        }
+      }
+    };
+    reader.readAsDataURL(imageFile);
+  } else {
+    feeds.unshift(newPost);
+    const feedHtml = loadFeed(feeds);
+    const blogFeedElement = document.getElementById("blog-feed");
+    if (blogFeedElement) {
+      blogFeedElement.innerHTML = feedHtml;
+    }
   }
 }
 
-const newPost = document.getElementById('newPost') as HTMLElement;
+
+const newPost = document.getElementById("newPost") as HTMLElement;
 
 newPost.addEventListener("click", () => {
   const newPostForm = `
@@ -180,6 +201,10 @@ newPost.addEventListener("click", () => {
       <textarea id="content" name="content" rows="4" cols="50" required></textarea>
       <label for="author">Author Name:</label>
       <input type="text" id="author" name="author" required>
+
+      <label for="image">Upload Image (optional):</label>
+      <input type="file" id="image" name="image" accept="image/*">
+
       <button type="submit">Submit</button>
     </form>
   `;
@@ -189,13 +214,20 @@ newPost.addEventListener("click", () => {
     blogFeedElement.innerHTML = newPostForm;
 
     const formElement = document.getElementById("new-post-form") as HTMLFormElement;
+    
     formElement.addEventListener("submit", (event) => {
       event.preventDefault();
       const title = (document.getElementById("title") as HTMLInputElement).value;
       const content = (document.getElementById("content") as HTMLTextAreaElement).value;
       const author = (document.getElementById("author") as HTMLInputElement).value;
-      createNewPost(title, content, author);
+      const imageFile = (document.getElementById("image") as HTMLInputElement).files?.[0];
+      createNewPost(title, content, author, imageFile);
     });
+    
+
+
   }
-});
+}
+
+)
 

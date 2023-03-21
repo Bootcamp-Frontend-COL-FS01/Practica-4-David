@@ -27,6 +27,9 @@ section {
   margin: 10px;
 }
 
+img {
+  max-width: 200px;
+}
 
 .change-password-button-container {
   display: grid;

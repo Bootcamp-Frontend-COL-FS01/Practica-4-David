@@ -9,6 +9,7 @@ module.exports = {
     register: "./src/register/register.ts",
     feed: "./src/feed/feed.ts",
     changepassword: "./src/changepassword/changepassword.ts",
+    newpost: "./src/newpost/newpost.ts"
 
   },
   devtool: "inline-source-map",
@@ -60,7 +61,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       fs: require.resolve("fs"),
-      '@': path.resolve(__dirname, 'src'), // Add this line
+      '@': path.resolve(__dirname, 'src'), 
 
     },
   },
@@ -85,7 +86,6 @@ module.exports = {
       chunks: ["feed"],
     }),
 
-    ////
     new HtmlWebpackPlugin({
       template: "./src/changepassword/changepassword.html",
       filename: "changepassword.html",
@@ -93,6 +93,14 @@ module.exports = {
     }),
 
     ////
+
+    new HtmlWebpackPlugin({
+      template: "./src/newpost/newpost.html",
+      filename: "newpost.html",
+      chunks: ["newpost"],
+    }),
+
+    /////
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),
